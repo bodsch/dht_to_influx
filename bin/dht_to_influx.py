@@ -46,6 +46,18 @@ def truncate(n, decimals=0):
     return int(n * multiplier) / multiplier
 
 
+def convert_bool(obj):
+    if isinstance(obj, bool):
+        return obj
+    if str(obj).lower() in ('no', 'false', '0'):
+        return False
+    if str(obj).lower() not in ('yes', 'true', '1'):
+        raise ansible.errors.AnsibleConnectionFailure(
+            f"expected yes/no/true/false/0/1, got {obj}")
+        )
+    return True
+
+
 def sensor_read(sensor_model=22, sensor_pin=4, verbose=False, test=False):
     """
         read DHT sensor data
@@ -88,8 +100,8 @@ async def write_to_influx(influx_config=dict(), sensor_config=dict(), location_c
     sensor_model = int(sensor_config.get("model", 22))
     sensor_pin = int(sensor_config.get("pin", 4))
     sensor_measurement_name = sensor_config.get("measurement_name", "dht22")
-    sensor_verbose = bool(sensor_config.get("verbose", False))
-    sensor_test = bool(sensor_config.get("test", False))
+    sensor_verbose = convert_bool(sensor_config.get("verbose", False))
+    sensor_test = convert_bool(sensor_config.get("test", False))
 
     location_host = location_config.get("host", None)
     location_name = location_config.get("name", None)
@@ -98,7 +110,7 @@ async def write_to_influx(influx_config=dict(), sensor_config=dict(), location_c
     influx_token  = influx_config.get("token", None)
     influx_org    = influx_config.get("org", None)
     influx_bucket = influx_config.get("bucket", None)
-    influx_verbose = bool(influx_config.get("verbose", False))
+    influx_verbose = convert_bool(influx_config.get("verbose", False))
 
     if not location_host or not location_name:
         print("Location data are not available!")
