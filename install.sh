@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dir=$(dirname $(find . -type f -name dht.py))
+dir=$(dirname $(find . -type f -name dht_to_influx.py))
 
 sudo cp -av "${dir}/init/systemd/dht-push-to-influx.service" /lib/systemd/system/
 
