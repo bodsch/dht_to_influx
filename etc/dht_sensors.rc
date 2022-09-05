@@ -1,0 +1,19 @@
+[influx]
+url    =
+token  =
+org    =
+bucket =
+
+[sensor]
+pin   = 4
+model = 22
+measurement_name = dht22
+test = false
+verbose = false
+
+[location]
+host     = sensor-0x
+name     =
+
+[process]
+sleep = 60

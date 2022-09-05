@@ -1,0 +1,31 @@
+[Unit]
+Description = DHT - temperature service daemon
+After = syslog.target network.target
+
+[Service]
+Type = simple
+
+Environment=TERM=linux
+
+PIDFile    = /run/dht-daemon.pid
+ExecStart  = /bin/dht_to_influx.py
+ExecReload = /bin/kill -HUP $MAINPID
+
+WorkingDirectory = /home/pi
+User  = pi
+Group = pi
+
+KillMode   = process
+KillSignal = SIGHUP
+
+Restart = on-failure
+RestartForceExitStatus = 127 SIGABRT SIGUSR1
+
+RestartSec = 10
+TimeoutSec = 30
+
+# ned for an ping
+CapabilityBoundingSet = CAP_SYS_RAWIO CAP_NET_RAW
+
+[Install]
+WantedBy = multi-user.target
