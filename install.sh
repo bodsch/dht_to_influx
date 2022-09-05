@@ -9,4 +9,7 @@ sudo cp -av "${dir}/../etc/dht_sensors.rc" /etc/
 
 sudo chmod +x /bin/dht_to_influx.py
 
+echo "install python requirements"
 pip3 install -r ${dir}/../requirements.txt
+
+echo "done."
