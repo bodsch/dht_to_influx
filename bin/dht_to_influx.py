@@ -122,7 +122,9 @@ async def write_to_influx(influx_config=dict(), sensor_config=dict(), location_c
           Write data:
         """
         if influx_verbose:
-            print("\n------- Written data: -------\n")
+            print("------- Written data: -------")
+            print(f"  influx   : url {influx_url} , org {influx_org} , bucket {influx_bucket}")
+            print(f"  location : host {location_host} , name {location_name}")
 
         write_api = client.write_api()
 
