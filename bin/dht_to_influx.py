@@ -73,8 +73,8 @@ def sensor_read(sensor_model=22, sensor_pin=4, verbose=False, test=False):
                 break
 
     if verbose:
-        print(f"humidity   : {humidity}")
-        print(f"temperature: {temperature}")
+        print(f"humidity   : {humidity} / {truncate(humidity, 1)}")
+        print(f"temperature: {temperature} / {truncate(temperature, 1)}")
 
     return truncate(humidity, 1), truncate(temperature, 1)
 
